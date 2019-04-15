@@ -84,4 +84,4 @@ typings/
 .dynamodb/
 
 # Own
-utilities/database/connection.js
+utilities/connection/connection.js
