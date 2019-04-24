@@ -12,7 +12,7 @@ const Connection = new Pool({
     port: ConnectionData.password
 })
 
-const signup = (request) => {
+const createAccount = (request) => {
     const { username, password } = request.body
 
     return new Promise(function (resolve, reject) {
@@ -31,7 +31,7 @@ const signup = (request) => {
     })
 }
 
-const login = (request) => {
+const loginAccount = (request) => {
     const { username, password } = request.body
 
     return new Promise(function (resolve, reject) {
@@ -49,7 +49,7 @@ const login = (request) => {
     })
 }
 
-const updateUserPassword = (request) => {
+const updateAccount = (request) => {
     // eslint-disable-next-line camelcase
     const { username, password, new_password } = request.body
 
@@ -79,7 +79,7 @@ const updateUserPassword = (request) => {
     })
 }
 
-const deleteUserByUsername = (request) => {
+const deleteAccount = (request) => {
     const { username, password } = request.body
 
     return new Promise(function (resolve, reject) {
@@ -107,8 +107,8 @@ const deleteUserByUsername = (request) => {
 }
 
 module.exports = {
-    signup,
-    login,
-    deleteUserByUsername,
-    updateUserPassword
+    createAccount,
+    loginAccount,
+    deleteAccount,
+    updateAccount
 }
