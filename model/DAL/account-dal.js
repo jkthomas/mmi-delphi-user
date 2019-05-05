@@ -12,10 +12,17 @@ const Connection = new Pool({
     port: ConnectionData.password
 })
 
+// TODO: Delete file after Sequelize implementation
 const createAccount = (request) => {
-    const { username, password } = request.body
-
     return new Promise(function (resolve, reject) {
+        const { username, password } = request.body
+        if (username === undefined || username === null) {
+            reject(new Error('Username was not specified'))
+        }
+        if (password === undefined || password === null) {
+            reject(new Error('Password was not specified'))
+        }
+
         bcrypt.hash(password, Encrypt.SaltRounds, function (_err, hash) {
             Connection.query(UserQuery.Insert, [username, hash], (error, result) => {
                 if (error) {
@@ -32,9 +39,15 @@ const createAccount = (request) => {
 }
 
 const loginAccount = (request) => {
-    const { username, password } = request.body
-
     return new Promise(function (resolve, reject) {
+        const { username, password } = request.body
+        if (username === undefined || username === null) {
+            reject(new Error('Username was not specified'))
+        }
+        if (password === undefined || password === null) {
+            reject(new Error('Password was not specified'))
+        }
+
         User.getUserByUsername(username)
             .then((user) => {
                 if (!user[0]) {
@@ -50,10 +63,20 @@ const loginAccount = (request) => {
 }
 
 const updateAccount = (request) => {
-    // eslint-disable-next-line camelcase
-    const { username, password, new_password } = request.body
-
     return new Promise(function (resolve, reject) {
+        // eslint-disable-next-line camelcase
+        const { username, password, new_password } = request.body
+        if (username === undefined || username === null) {
+            reject(new Error('Username was not specified'))
+        }
+        if (password === undefined || password === null) {
+            reject(new Error('Password was not specified'))
+        }
+        // eslint-disable-next-line camelcase
+        if (new_password === undefined || new_password === null) {
+            reject(new Error('New password was not specified'))
+        }
+
         User.getUserByUsername(username)
             .then((user) => {
                 if (!user[0]) {
@@ -80,9 +103,15 @@ const updateAccount = (request) => {
 }
 
 const deleteAccount = (request) => {
-    const { username, password } = request.body
-
     return new Promise(function (resolve, reject) {
+        const { username, password } = request.body
+        if (username === undefined || username === null) {
+            reject(new Error('Username was not specified'))
+        }
+        if (password === undefined || password === null) {
+            reject(new Error('Password was not specified'))
+        }
+
         User.getUserByUsername(username)
             .then((user) => {
                 if (!user[0]) {

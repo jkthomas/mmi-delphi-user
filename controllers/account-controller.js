@@ -1,4 +1,6 @@
 const accountQueries = require('../model/DAL/account-dal')
+// TODO: Change stored procedures to Sequelize mapping
+// const seqConn = require('../utilities/connection/seqconn')
 
 const createAccount = (request, response) => {
     accountQueries.createAccount(request)
