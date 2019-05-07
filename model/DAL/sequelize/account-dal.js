@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize')
 const Connection = require('../../../utilities/connection/seqconn')
+const Encrypt = require('../../utilities/resources/constants/encrypt')
+const bcrypt = require('bcrypt')
 
 const Account = Connection.sequelize.define('account', {
     id: {
@@ -28,6 +30,30 @@ const Account = Connection.sequelize.define('account', {
     // options
 })
 
+function createAccount (request) {
+    return new Promise(function (resolve, reject) {
+        const { username, password } = request.body
+        if (username === undefined || username === null) {
+            reject(new Error('Username was not specified'))
+        }
+        if (password === undefined || password === null) {
+            reject(new Error('Password was not specified'))
+        }
+
+        bcrypt.hash(password, Encrypt.SaltRounds, function (_err, hashedPassword) {
+            Account.create({
+                username: username,
+                password: hashedPassword
+            }).then(account => {
+                resolve(account)
+            }).catch(function (error) {
+                reject(error)
+            })
+        })
+    })
+}
+
 module.exports = {
-    Account
+    Account,
+    createAccount
 }

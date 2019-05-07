@@ -2,13 +2,13 @@ const accountQueries = require('../model/DAL/account-dal')
 // TODO: Change stored procedures to Sequelize mapping
 // const seqConn = require('../utilities/connection/seqconn')
 
-const createAccount = (request, response) => {
+function createAccount (request, response) {
     accountQueries.createAccount(request)
         .then((user) => response.status(201).send({ 'message': `User added with ID: ${user.username}` }))
         .catch((error) => response.status(400).send({ 'message': error.message }))
 }
 
-const loginAccount = (request, response) => {
+function loginAccount (request, response) {
     accountQueries.loginAccount(request)
         .then((passwordMatch) => {
             if (passwordMatch) {
@@ -20,7 +20,7 @@ const loginAccount = (request, response) => {
         .catch((error) => response.status(400).send({ 'message': error.message }))
 }
 
-const updateAccount = (request, response) => {
+function updateAccount (request, response) {
     accountQueries.updateAccount(request)
         .then((passwordMatch) => {
             if (passwordMatch) {
@@ -32,7 +32,7 @@ const updateAccount = (request, response) => {
         .catch((error) => response.status(400).send({ 'message': error.message }))
 }
 
-const deleteAccount = (request, response) => {
+function deleteAccount (request, response) {
     accountQueries.deleteAccount(request)
         .then((passwordMatch) => {
             if (passwordMatch) {

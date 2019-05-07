@@ -11,7 +11,7 @@ const sequelize = new Sequelize(
     })
 
 // For connection testing
-const checkConnetion = () => {
+function checkConnetion () {
     sequelize
         .authenticate()
         .then(() => {
@@ -22,7 +22,7 @@ const checkConnetion = () => {
         })
 }
 
-const syncUser = () => {
+function syncUser () {
     User.sync({ force: true }).then(() => {
         // Now the `users` table in the database corresponds to the model definition
         return User.create({
