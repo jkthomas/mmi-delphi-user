@@ -22,33 +22,7 @@ function checkConnetion () {
         })
 }
 
-function syncUser () {
-    User.sync({ force: true }).then(() => {
-        // Now the `users` table in the database corresponds to the model definition
-        return User.create({
-            firstName: 'John',
-            lastName: 'Hancock'
-        })
-    })
-}
-
-// TODO: Delete after full Sequelize implementation
-const User = sequelize.define('testuser', {
-    // attributes
-    firstName: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    lastName: {
-        type: Sequelize.STRING
-        // allowNull defaults to true
-    }
-}, {
-    // options
-})
-
 module.exports = {
     sequelize,
-    checkConnetion,
-    syncUser
+    checkConnetion
 }
