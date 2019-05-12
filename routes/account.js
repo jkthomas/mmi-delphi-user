@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router()
-const accountController = require('../controllers/account-controller')
+const account = require('../controllers/account-controller')
+var accountController = new account.AccountController()
 
 /* POST signup. */
 router.post('/signup', accountController.createAccount)
